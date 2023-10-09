@@ -1,0 +1,45 @@
+name: Deploy to Linode via SSH
+
+on:
+  push:
+    branches:
+      - main # Change to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive' # Clone submodules
+
+      - name: Update apt cache on the runner and install dependencies
+        run: sudo apt update && sudo apt install sshpass
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.LINODE_IP }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          source: ./*
+          target: ${{ secrets.PATH_TO_SAVE }}
+
+      - name: execute container
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.LINODE_IP }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ${{ secrets.PATH_TO_SAVE }}
+            docker-compose pull && docker-compose up -d
