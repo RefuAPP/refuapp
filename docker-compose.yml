@@ -1,0 +1,42 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: refuapp
+      POSTGRES_USER: refuapp_user
+      POSTGRES_PASSWORD: refuapp_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks: 
+      - backend
+
+  # Refuapp Backend
+  refuapp-backend:
+    build:
+      context: ./refuapp-backend  # Path to your project directory
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    external_links:
+      - postgres:docker-mysql
+    environment:
+      DATABASE_URL: postgresql+psycopg2://refuapp_user:refuapp_password@docker-mysql:5432/refuapp
+    depends_on:
+      - postgres
+    networks: 
+      - backend
+
+networks:
+  backend:
+    driver: "bridge"
+
+volumes:
+  postgres_data:
+    driver: local # Define the driver and options under the volume name
+    driver_opts:
+      type: none
+      device: /data/db
+      o: bind

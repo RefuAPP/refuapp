@@ -1,0 +1,6 @@
+[submodule "refuapp-backend"]
+	path = refuapp-backend
+	url = git@github.com:RefuAPP/refuapp-backend.git
+[submodule "refuapp-frontend"]
+	path = refuapp-frontend
+	url = git@github.com:RefuAPP/refuapp-frontend.git
