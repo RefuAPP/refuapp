@@ -9,15 +9,11 @@ services:
       POSTGRES_PASSWORD: refuapp_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
   refuapp-backend:
     build:
       context: ./refuapp-backend  # Path to your project directory
       dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
     external_links:
       - postgres:docker-mysql
     environment:
