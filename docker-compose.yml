@@ -29,32 +29,6 @@ services:
     networks: 
       - backend
 
-  swag:
-    image: lscr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/Madrid
-      - URL=api.pofnet.net
-      - VALIDATION=http
-      - EMAIL=pablofrailealonso@gmail.com
-      - PROD=true
-    volumes:
-      - /home/ferran/refuapp-deploy/nginx/site-confs:/config/nginx/site-confs
-      - /home/ferran/www/:/var/www
-      - /home/ferran/static/:/static
-    ports:
-      - 443:443
-      - 80:80
-    restart: unless-stopped
-    depends_on:
-      - refuapp-backend
-    networks:
-      - backend
-
 
 networks:
   backend:
