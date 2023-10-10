@@ -11,8 +11,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-    networks: 
-      - backend
 
   refuapp-backend:
     build:
@@ -26,13 +24,18 @@ services:
       DATABASE_URL: postgresql+psycopg2://refuapp_user:refuapp_password@docker-mysql:5432/refuapp
     depends_on:
       - postgres
-    networks: 
-      - backend
 
-
-networks:
-  backend:
-    driver: "bridge"
+  nginxproxymanager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginxproxymanager
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./proxy-manager/data:/data
+      - ./proxy-manager/letsencrypt:/etc/letsencrypt
 
 volumes:
   postgres_data:
