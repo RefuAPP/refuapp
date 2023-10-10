@@ -1,5 +1,6 @@
 version: '3'
 services:
+
   postgres:
     image: postgres:latest
     environment:
@@ -13,7 +14,6 @@ services:
     networks: 
       - backend
 
-  # Refuapp Backend
   refuapp-backend:
     build:
       context: ./refuapp-backend  # Path to your project directory
@@ -29,14 +29,56 @@ services:
     networks: 
       - backend
 
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Madrid
+      - URL=api.pofnet.net
+      - VALIDATION=http
+      - EMAIL=pablofrailealonso@gmail.com
+      - PROD=true
+    volumes:
+      - /home/ferran/refuapp-deploy/nginx/site-confs:/config/nginx/site-confs
+      - /home/ferran/www/:/var/www
+      - /home/ferran/static/:/static
+    ports:
+      - 443:443
+      - 80:80
+    restart: unless-stopped
+    depends_on:
+      - refuapp-backend
+    networks:
+      - backend
+
+
 networks:
   backend:
     driver: "bridge"
 
 volumes:
   postgres_data:
-    driver: local # Define the driver and options under the volume name
+    driver: local
     driver_opts:
       type: none
-      device: /home/ferran/data/
+      device: /home/ferran/data
       o: bind
+  frontend_page:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ferran/web
+  static_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ferran/static
+  swag_config_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ferran/refuapp-deploy
