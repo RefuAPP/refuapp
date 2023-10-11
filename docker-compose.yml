@@ -21,6 +21,13 @@ services:
     depends_on:
       - postgres
 
+  refuapp-frontend:
+    build:
+      context: ./refuapp-frontend  # Path to your project directory
+      dockerfile: Dockerfile
+    depends_on:
+      - refuapp-backend
+
   nginxproxymanager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: nginxproxymanager
@@ -40,18 +47,3 @@ volumes:
       type: none
       device: /home/ferran/data
       o: bind
-  frontend_page:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/ferran/web
-  static_files:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/ferran/static
-  swag_config_files:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/ferran/refuapp-deploy

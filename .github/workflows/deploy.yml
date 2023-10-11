@@ -42,4 +42,4 @@ jobs:
           port: 22
           script: |
             cd ${{ secrets.PATH_TO_SAVE }}
-            docker-compose pull && docker-compose up -d
+            docker-compose pull && docker-compose up -d --build
