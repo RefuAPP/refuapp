@@ -4,3 +4,6 @@
 [submodule "refuapp-frontend"]
 	path = refuapp-frontend
 	url = git@github.com:RefuAPP/refuapp-frontend.git
+[submodule "refuge-sensor-server"]
+	path = refuge-sensor-server
+	url = git@github.com:RefuAPP/refuge-sensor-server.git
