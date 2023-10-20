@@ -32,8 +32,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - refuapp-backend
-    environment:
-      MAPS_API_KEY: ${FRONTEND_MAPS_API_KEY}
 
   nginxproxymanager:
     image: 'jc21/nginx-proxy-manager:latest'
