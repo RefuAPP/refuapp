@@ -31,7 +31,7 @@ services:
       context: ./refuapp-frontend  # Path to your project directory
       dockerfile: Dockerfile
       args:
-        - MAPS_API_KEY: ${FRONTEND_MAPS_API_KEY}
+        - MAPS_API_KEY=${FRONTEND_MAPS_API_KEY}
     depends_on:
       - refuapp-backend
 
