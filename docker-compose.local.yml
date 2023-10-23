@@ -9,6 +9,7 @@ services:
     build:
       args:
         - BACKEND_URL=http://localhost:8000
+        - SENSORS_BACKEND_URL=http://localhost:8001
     ports:
       - '80:80'
 
@@ -18,3 +19,7 @@ services:
         - BACKEND_URL=http://localhost:8000
     ports:
       - '81:80'
+
+  refuapp-sensor-backend:
+    ports:
+      - '8001:8000'

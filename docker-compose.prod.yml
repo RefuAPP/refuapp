@@ -5,6 +5,7 @@ services:
     build:
       args:
         - BACKEND_URL=${FRONTEND_API_URL}
+        - SENSORS_BACKEND_URL=${FRONTEND_SENSORS_API_URL}
 
   refuapp-admin-frontend:
     build:
