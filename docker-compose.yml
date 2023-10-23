@@ -7,8 +7,6 @@ services:
       POSTGRES_DB: ${BACKEND_DB_NAME}
       POSTGRES_USER: ${BACKEND_DB_USER}
       POSTGRES_PASSWORD: ${BACKEND_DB_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
 
   refuapp-backend:
     build:
@@ -32,7 +30,6 @@ services:
       dockerfile: Dockerfile
       args:
         - MAPS_API_KEY=${FRONTEND_MAPS_API_KEY}
-        - BACKEND_URL=https://backend.refuapp.pofnet.net
     depends_on:
       - refuapp-backend
 
@@ -41,21 +38,9 @@ services:
       context: ./refuapp-admin
       dockerfile: Dockerfile
       args:
-        - BACKEND_URL=https://backend.refuapp.pofnet.net
+        - BACKEND_URL=${FRONTEND_API_URL}
     depends_on:
       - refuapp-backend
-
-  nginxproxymanager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    container_name: nginxproxymanager
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
-    volumes:
-      - ./proxy-manager/data:/data
-      - ./proxy-manager/letsencrypt:/etc/letsencrypt
 
   sensors_db:
     image: postgres:latest
@@ -63,8 +48,6 @@ services:
       POSTGRES_DB: ${SENSORS_DB_NAME}
       POSTGRES_USER: ${SENSORS_DB_USER}
       POSTGRES_PASSWORD: ${SENSORS_DB_PASS}
-    volumes:
-      - postgres_sensor_data:/var/lib/postgresql/data
 
   refuapp-sensor-backend:
     build:
@@ -80,17 +63,3 @@ services:
       DB_PORT: ${SENSORS_DB_PORT}
     depends_on:
       - sensors_db
-
-volumes:
-  postgres_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/ferran/data
-      o: bind
-  postgres_sensor_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/ferran/data-sensors
-      o: bind

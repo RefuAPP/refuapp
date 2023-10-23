@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  refuapp-frontend:
+    build:
+      args:
+        - BACKEND_URL=${FRONTEND_API_URL}
+
+  refuapp-admin-frontend:
+    build:
+      args:
+        - BACKEND_URL=${FRONTEND_API_URL}
+
+  postgres:
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  nginxproxymanager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginxproxymanager
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    volumes:
+      - ./proxy-manager/data:/data
+      - ./proxy-manager/letsencrypt:/etc/letsencrypt
+
+  sensors_db:
+    volumes:
+      - postgres_sensor_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ferran/data
+      o: bind
+  postgres_sensor_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ferran/data-sensors
+      o: bind
