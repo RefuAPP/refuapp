@@ -40,6 +40,8 @@ services:
     build:
       context: ./refuapp-admin
       dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=https://backend.refuapp.pofnet.net
     depends_on:
       - refuapp-backend
 
