@@ -32,6 +32,7 @@ services:
       dockerfile: Dockerfile
       args:
         - MAPS_API_KEY=${FRONTEND_MAPS_API_KEY}
+        - BACKEND_URL=https://backend.refuapp.pofnet.net
     depends_on:
       - refuapp-backend
 

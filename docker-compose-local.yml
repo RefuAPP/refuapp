@@ -23,6 +23,8 @@ services:
       JWT_KEY: ${BACKEND_JWT_KEY}
     depends_on:
       - postgres
+    ports:
+      - "8000:8000"
 
   refuapp-frontend:
     build:
@@ -30,6 +32,7 @@ services:
       dockerfile: Dockerfile
       args:
         - MAPS_API_KEY=${FRONTEND_MAPS_API_KEY}
+        - BACKEND_URL=http://localhost:8000
     depends_on:
       - refuapp-backend
     ports:
