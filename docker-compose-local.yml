@@ -35,6 +35,15 @@ services:
     ports:
       - '80:80'
 
+  refuapp-admin-frontend:
+    build:
+      context: ./refuapp-admin
+      dockerfile: Dockerfile
+    depends_on:
+      - refuapp-backend
+    ports:
+      - '81:80'
+
   sensors_db:
     image: postgres:latest
     environment:
