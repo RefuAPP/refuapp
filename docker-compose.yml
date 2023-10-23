@@ -35,6 +35,13 @@ services:
     depends_on:
       - refuapp-backend
 
+  refuapp-admin-frontend:
+    build:
+      context: ./refuapp-admin
+      dockerfile: Dockerfile
+    depends_on:
+      - refuapp-backend
+
   nginxproxymanager:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: nginxproxymanager

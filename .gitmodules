@@ -7,3 +7,6 @@
 [submodule "refuge-sensor-server"]
 	path = refuge-sensor-server
 	url = git@github.com:RefuAPP/refuge-sensor-server.git
+[submodule "refuapp-admin"]
+	path = refuapp-admin
+	url = git@github.com:RefuAPP/refuapp-admin.git
