@@ -6,6 +6,8 @@ services:
       args:
         - BACKEND_URL=${FRONTEND_API_URL}
         - SENSORS_BACKEND_URL=${FRONTEND_SENSORS_API_URL}
+    volumes:
+      - static_files:/app/static
 
   refuapp-admin-frontend:
     build:
@@ -44,4 +46,10 @@ volumes:
     driver_opts:
       type: none
       device: /home/ferran/data-sensors
+      o: bind
+  static_files:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/ferran/static
       o: bind
