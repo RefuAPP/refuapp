@@ -3,7 +3,14 @@
 This repository contains all the services you need for running an instance of RefuApp!
 
 ## Running Locally 💻🚀
-You can run refuapp locally with docker compose with the following command:
+
+### Configure your Google Maps API key 🔑
+By default, all the environment variables are loaded from the [.env file](.env). All the default values have straightforward values, except for the `FRONTEND_MAPS_API_KEY`. This variable should be provided by you, as it is necessary for loading the map on the home page.
+
+To obtain your API key, you can [get it from the Google Cloud page](https://developers.google.com/maps/get-started).
+
+### Running with Docker 🐳
+Since our architecture consists of different backend and frontend services behind a proxy, the easiest way to run it locally is with `docker-compose`:
 
 ```shell
 git clone --recursive git@github.com:RefuAPP/refuapp.git
