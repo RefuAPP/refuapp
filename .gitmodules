@@ -10,3 +10,6 @@
 [submodule "refuapp-admin"]
 	path = refuapp-admin
 	url = git@github.com:RefuAPP/refuapp-admin.git
+[submodule "refuapp-supervisor"]
+	path = refuapp-supervisor
+	url = git@github.com:RefuAPP/refuapp-supervisor.git
