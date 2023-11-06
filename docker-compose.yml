@@ -46,6 +46,15 @@ services:
     depends_on:
       - refuapp-backend
 
+  refuapp-supervisor-frontend:
+    build:
+      context: ./refuapp-supervisor
+      dockerfile: Dockerfile
+      args:
+        - BACKEND_URL=${FRONTEND_API_URL}
+    depends_on:
+      - refuapp-backend
+
   sensors_db:
     image: postgres:latest
     environment:

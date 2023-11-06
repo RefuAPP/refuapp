@@ -16,6 +16,10 @@ services:
       args:
         - BACKEND_URL=${FRONTEND_API_URL}
 
+  refuapp-supervisor-frontend:
+    build:
+      args:
+        - BACKEND_URL=${FRONTEND_API_URL}
   postgres:
     volumes:
       - postgres_data:/var/lib/postgresql/data
