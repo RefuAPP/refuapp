@@ -74,5 +74,7 @@ services:
       DB_PASS: ${SENSORS_DB_PASS}
       DB_HOST: docker-mysql
       DB_PORT: ${SENSORS_DB_PORT}
+      REFUGE_ID: ${SENSORS_REFUGE_ID}
+      REFUGE_PASSWORD: ${SENSORS_REFUGE_PASSWORD}
     depends_on:
       - sensors_db
