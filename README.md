@@ -21,7 +21,7 @@ docker-compose -f docker-compose.yml -f docker-compose.local.yml up -d --build
 You can deploy to our linode server doing push to the main branch of this repo:
 ```shell
 git pull
-git submodule update --init --remote --recursive
+git submodule update --init --remote --recursive --rebase
 # Add changed submodules or config files
 git push
 ```
